@@ -91,13 +91,17 @@ fun LoginContent(viewModel: MainViewModel) {
             maxLines = 1,
         )
 
-        Button(onClick = {
-            viewModel.login(
-                user = user,
-                password = password,
-            )
-        }, enabled = loginState !is LoginState.Loadingg) {
-            Text(text = "Login")
+        if (loginState is LoginState.Loadingg) {
+            CircularProgressIndicator()
+        } else {
+            Button(onClick = {
+                viewModel.login(
+                    user = user,
+                    password = password,
+                )
+            }, enabled = loginState !is LoginState.Loadingg) {
+                Text(text = "Login")
+            }
         }
     }
 
